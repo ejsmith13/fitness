@@ -11,15 +11,15 @@ router.post("/api/exercise", ({ body }, res) => {
     });
 });
 
-router.post("/api/exercise/bulk", ({ body }, res) => {
-  Exercise.insertMany(body)
-    .then(dbExercise => {
-      res.json(dbExercise);
-    })
-    .catch(err => {
-      res.status(400).json(err);
-    });
-});
+// router.post("/api/exercise/bulk", ({ body }, res) => {
+//   Exercise.insertMany(body)
+//     .then(dbExercise => {
+//       res.json(dbExercise);
+//     })
+//     .catch(err => {
+//       res.status(400).json(err);
+//     });
+// });
 
 router.get("/api/exercise", (req, res) => {
   Exercise.find({})
