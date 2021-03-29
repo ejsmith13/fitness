@@ -13,7 +13,7 @@ router.post("/api/workouts", ({ body }, res) => {
 
 router.get("/api/workouts", (req, res) => {
   db.Workout.find({})
-    .sort({ day: -1 })
+    .sort({ day: 1 })
     .then((dbExercise) => {
       res.json(dbExercise);
     })
@@ -24,7 +24,7 @@ router.get("/api/workouts", (req, res) => {
 
 router.get("/api/workouts/range", (req, res) => {
   db.Workout.find({})
-    .sort({ day: -1 })
+    .sort({ day: 1 })
     .then((dbExercise) => {
       res.json(dbExercise);
     })
@@ -46,7 +46,7 @@ router.get("/api/workouts/:id", (req, res) => {
 
 router.put("/api/workouts/:id", (req, res) => {
   db.Workout.where("_id", req.params.id)
-    .update({ $push: { exercises: req.body } })
+    .updateOne({ $push: { exercises: req.body } })
 
     .then((dbExercise) => {
       res.json(dbExercise);
