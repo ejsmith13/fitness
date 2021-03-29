@@ -177,6 +177,7 @@ function calculateTotalWeight(data) {
   let totals = [];
 
   data.forEach((workout) => {
+    console.log(workout)
     const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
       if (type === 'resistance') {
         return total + weight;
@@ -205,4 +206,6 @@ function workoutNames(data) {
 }
 
 // get all workout data from back-end
-API.getWorkoutsInRange().then(populateChart);
+
+API.getWorkoutsInRange()
+.then(data => populateChart(data));
