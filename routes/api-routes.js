@@ -1,16 +1,6 @@
 const router = require("express").Router();
 const db = require("../models");
 
-router.post("/api/workouts", ({ body }, res) => {
-  db.Workout.create(body)
-    .then((dbExercise) => {
-      res.json(dbExercise);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
-});
-
 router.get("/api/workouts", (req, res) => {
   db.Workout.find({})
     .sort({ day: 1 })
@@ -23,7 +13,11 @@ router.get("/api/workouts", (req, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-  db.Workout.find({})
+  //setting variable to search for last weeks workouts
+  let d = new Date();
+  d.setDate(d.getDate() - 7);
+  
+  db.Workout.find({ day: { $gte: d } })
     .sort({ day: 1 })
     .then((dbExercise) => {
       res.json(dbExercise);
@@ -44,6 +38,16 @@ router.get("/api/workouts/:id", (req, res) => {
     });
 });
 
+router.post("/api/workouts", ({ body }, res) => {
+  db.Workout.create(body)
+    .then((dbExercise) => {
+      res.json(dbExercise);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
+
 router.put("/api/workouts/:id", (req, res) => {
   db.Workout.where("_id", req.params.id)
     .updateOne({ $push: { exercises: req.body } })
@@ -55,7 +59,5 @@ router.put("/api/workouts/:id", (req, res) => {
       res.status(400).json(err);
     });
 });
-
-
 
 module.exports = router;
