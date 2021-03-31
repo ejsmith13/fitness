@@ -40,6 +40,24 @@ router.get("/api/workouts/range", (req, res) => {
   db.Workout.find({ day: { $gte: d } })
     .sort({ day: 1 })
     .then((dbExercise) => {
+      let i;
+      let k;
+      let total;
+      let id;
+      for (i = 0; i < dbExercise.length; i++) {
+        id = dbExercise[i]._id;
+        let exercises= dbExercise[i].exercises
+        console.log(id);
+        total = 0;
+        for (k = 0; k < exercises.length; k++) {
+          console.log(exercises[k]);
+          total += exercises[k].duration;
+          
+        }
+        dbExercise[i].totalDuration = total;
+        
+        
+      }
       res.json(dbExercise);
     })
     .catch((err) => {
