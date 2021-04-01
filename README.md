@@ -36,7 +36,9 @@
   ## Screenshots:
 
 
-  
+  ![Fitness home screen](public/assets/images/screenshot_fitness_dashboard.png)  
+
+  ![Fitness dashboard](public/assets/images/screenshot_fitness.png)  
 
   
 --------------------------------------
